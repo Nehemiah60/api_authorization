@@ -1,0 +1,28 @@
+tags:
+  - name: Create a New Bookmark
+
+paths:
+  /bookmarks:
+    post:
+      summary: "Create a New Bookmark"
+      description: "This endpoint allows you to create a new bookmark."
+      parameters:
+        - in: body
+          name: bookmark
+          description: "The bookmark object to be created"
+          required: true
+          schema:
+            type: object
+            properties:
+              body:
+                type: string
+                description: "The content of the bookmark"
+              url:
+                type: string
+                description: "The URL of the bookmark"
+
+      responses:
+        201:
+          description: "Bookmark created successfully"
+        400:
+          description: "Invalid input"

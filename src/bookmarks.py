@@ -3,11 +3,13 @@ from flask import Blueprint, request, jsonify, abort
 from src.models import Bookmarks, db
 import validators
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from flasgger import Swagger, swag_from
 
 bookmarks = Blueprint('bookmarks', __name__, url_prefix="/api/v1")
 
 @bookmarks.route("/bookmarks", methods=['POST', 'GET'])
 @jwt_required()
+@swag_from('./docs/bookmarks/create_bookmarks.yml')
 def create_bookmarks():
     current_user = get_jwt_identity()
 

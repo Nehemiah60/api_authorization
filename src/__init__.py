@@ -5,6 +5,8 @@ from src.bookmarks import bookmarks
 from src.models import db, Bookmarks
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+from flasgger import Swagger, swag_from
+from src.config.swagger import template, swagger_config
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -14,7 +16,11 @@ def create_app(test_config=None):
         app.config.from_mapping(
             SECRET_KEY=os.environ.get("SECRET_KEY"),
             SQLALCHEMY_DATABASE_URI= os.environ.get('SQLALCHEMY_DB_URI'),
-            JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+            JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY'),
+            SWAGGER = {
+                "title": "Bookmarks API",
+                "uiversion": 3
+            }
 
         )
 
@@ -29,7 +35,10 @@ def create_app(test_config=None):
     app.register_blueprint(auth)
     app.register_blueprint(bookmarks)
 
+    Swagger(app, config=swagger_config, template=template)
+
     @app.route('/<short_url>', methods=['GET'])
+    @swag_from('./docs/short_url.yml')
     def redirect_to_url(short_url):
         bookmark = Bookmarks.query.filter_by(short_url=short_url).first_or_404()
 

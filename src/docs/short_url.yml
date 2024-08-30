@@ -1,0 +1,20 @@
+
+tags:
+  - name: "Short Url"
+
+parameters:
+  - name: short_url
+    in: path
+    description: short url to redirect
+    required: true
+    schema:
+      type: string
+    
+responses:
+  302:
+    description: Redirects to the url
+  404:
+    description: Resource not found
+
+
+

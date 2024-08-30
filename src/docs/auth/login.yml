@@ -1,0 +1,30 @@
+tags:
+  - name: User Login
+
+parameters:
+  - name: email
+    in: body
+    description: The username of the user
+    required: true
+    schema:
+      type: string
+
+  - name: password
+    in: body
+    description: The password of the user
+    required: true
+    schema:
+      type: string
+
+responses:
+  200:
+    description: User created successfully
+    schema:
+      type: object
+      properties:
+        email: 
+          type: string
+          example: yusuf@gmail.com
+        password: 
+          type: string
+          example: jhhjfd

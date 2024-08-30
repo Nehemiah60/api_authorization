@@ -5,11 +5,13 @@ from werkzeug.security import (check_password_hash,
                                 generate_password_hash)
 from flask_jwt_extended import (create_access_token, 
                                 create_refresh_token, jwt_required, get_jwt_identity)
+from flasgger import Swagger, swag_from
 
 
 auth = Blueprint('auth', __name__, url_prefix="/api/v1/auth")
 
 @auth.route("/register", methods=['POST'])
+@swag_from('./docs/auth/register.yml')
 def register_user():
     body = request.get_json()
 
@@ -70,6 +72,7 @@ def register_user():
     })
 
 @auth.route('/login', methods=['POST'])
+@swag_from('./docs/auth/login.yml')
 def login():
     body = request.get_json()
     email = body.get('email')

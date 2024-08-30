@@ -1,0 +1,43 @@
+tags:
+  - name: Register a User
+
+parameters:
+  - name: username
+    in: body
+    description: The username for the new user
+    required: true
+    schema:
+      type: string
+  - name: email
+    in: body
+    description: The email of the new user
+    required: true
+    schema:
+      type: string
+  - name: password
+    in: body
+    description: The password of the new user
+    required: true
+    schema:
+      type: string
+
+responses:
+  200:
+    description: User is registered successfully
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5
+        username:
+          type: string
+          example: Nehemiah
+        email:
+          type: string
+          example: wild@mail.com
+
+  404:
+    description: Requested URL is not found
+  400:
+    description: User sent a bad resquest
